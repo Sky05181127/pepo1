@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjsxt.mapper.RoleMapper">
+    <!--新增角色-->
+    <insert id="insRoleInfoMapper" useGeneratedKeys="true" keyColumn="roleid" keyProperty="roleid">
+        insert into sys_roles values(default,#{rolename},#{roledesc})
+    </insert>
+    <!--增加菜单权限-->
+        <insert id="insRoleMenuInfoMapper">
+           insert into sys_role_menu  values
+           <foreach collection="array"  separator=","  item="id">
+               (#{roleid},#{id})
+           </foreach>
+        </insert>
+</mapper>

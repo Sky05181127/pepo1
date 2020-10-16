@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjsxt.mapper.CustomerMapper">
+    <!--分页带条件查询客户信息-->
+        <select id="selCustomerMapper" resultType="customer">
+            select * from bus_customers
+            <where>
+                <if test="identity !=null and identity!=''">
+                    <bind name="idety" value="'%'+identity+'%'"></bind>
+                    and identity LIKE #{idety}
+                </if>
+                <if test="phone!=null and phone!=''">
+                    <bind name="ph" value="'%'+phone+'%'"></bind>
+                    and phone LIKE #{ph}
+                </if>
+            </where>
+            limit #{start},#{rows}
+        </select>
+    <!--根据条件动态获取符合要求的数据量-->
+    <select id="selCustomerCountMapper" resultType="int">
+        select count(*) from bus_customers
+        <where>
+            <if test="identity !=null and identity!=''">
+                <bind name="idety" value="'%'+identity+'%'"></bind>
+                and identity LIKE #{idety}
+            </if>
+            <if test="phone!=null and phone!=''">
+                <bind name="ph" value="'%'+phone+'%'"></bind>
+                and phone LIKE #{ph}
+            </if>
+        </where>
+    </select>
+</mapper>
